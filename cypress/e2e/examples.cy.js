@@ -1,6 +1,6 @@
 describe('Various example', () => {
     beforeEach(()=>{
-        cy.visit('/')
+        cy.visit('/examples')
     })
  it('multi-page testing' ,()=>{
     cy.getDataTest('nav-why-cypress').click()
@@ -14,6 +14,11 @@ describe('Various example', () => {
     
     cy.getDataTest('nav-examples').click();
     cy.location('pathname').should('equal','/examples');
-
+ })
+ it.only('intercept' , () =>{
+    cy.intercept("POST" , "http://localhost:3000/examples", {
+        fixture: 'example.json'
+    })
+    cy.getDataTest('post-button').click()
  })
 })
