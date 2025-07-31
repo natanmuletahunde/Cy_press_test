@@ -24,5 +24,7 @@ describe('Various example', () => {
    it.only('grudges', ()=>{
       cy.contains(/add some grudges/i)
       cy.getDataTest('grudge-input').type('some grudge')
+      cy.getDataTest('add-grudge-button').click()
    })
+       
 })
