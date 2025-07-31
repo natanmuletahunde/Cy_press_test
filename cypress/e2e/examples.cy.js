@@ -23,8 +23,24 @@ describe('Various example', () => {
  })
    it.only('grudges', ()=>{
       cy.contains(/add some grudges/i)
-      cy.getDataTest('grudge-input').type('some grudge')
+       cy.getDataTest('grudge-list').within(()=>{
+        cy.get('li').should('have.length',0)
+       })
+      cy.getDataTest('grudge-input').within(()=>{
+        cy.get('input').type('some grudge')
+      })
       cy.getDataTest('add-grudge-button').click()
-   })
-       
+      cy.getDataTest('grudge-list').within(()=>{
+        cy.get('li').should('have.length',1)
+       })
+       cy.getDataTest('grudge-input').within(()=>{
+        cy.get('input').type('number 2')
+      })
+          cy.getDataTest('add-grudge-button').click()
+          cy.getDataTest('grudge-list').within(()=>{
+            cy.get('li').should('have.length',2)
+            cy.get('li').its(0).should('contain.text','some grudge' )
+           })
+
+   })   
 })
